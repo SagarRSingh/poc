@@ -1,0 +1,24 @@
+<div class="charts-container">
+  
+  <div class="chart-wrapper">
+      <canvas baseChart width="300" height="300"
+        [type]="'pie'"
+        [datasets]="pieChartDatasets"
+        [labels]="pieChartLabels"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend">
+      </canvas>
+    </div>
+
+  <div class="chart-wrapper">
+      <canvas baseChart width="300" height="300"
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend">
+      </canvas>
+  </div>  
+</div>
+
+  
