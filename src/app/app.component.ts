@@ -180,8 +180,6 @@ export class AppComponent implements OnInit{
     this.pieChartData = this.enterprises.map(e=>e.customers);
     this.pieChartLabel = this.enterprises.map(e=>e.name)
     this.lineChartData = this.pieChartData;
-
-    
   }
 
   toggleDropdown(){
@@ -197,26 +195,23 @@ export class AppComponent implements OnInit{
     this.name = enterprise.name;
     this.showDropdown = false;
   }
-  filterEnterprisesOnDate(property:string, date:any){
-    return this.enterprises.filter((enterprise:any)=> enterprise[property] === date)
-  } 
+  
   filterStartDate(){
-    let enterpriseList = this.filterEnterprisesOnDate('startDate', this.startDate);
-    let nodeList:any = [];
-    enterpriseList.forEach((enterprise:any)=> nodeList = nodeList.concat(enterprise.nodes))
-    if(nodeList.length > 0){
-      this.list = nodeList;
-      this.showList = true;
-    }
+    this.requestService.request(`/nodes?startDate=${this.startDate}`).subscribe(nodes=>{
+      if(nodes.length > 0){
+        this.list = nodes;
+        this.showList = true;
+      }
+    });
+    
   }
   filterEndDate(){
-    let enterpriseList = this.filterEnterprisesOnDate('endTime', this.endTime);
-    let nodeList:any = [];
-    enterpriseList.forEach((enterprise:any)=> nodeList = nodeList.concat(enterprise.nodes))
-    if(nodeList.length > 0){
-      this.list = nodeList;
-      this.showList = true;
-    }
+    this.requestService.request(`/nodes?endTime=${this.endTime}`).subscribe(nodes=>{
+      if(nodes.length > 0){
+        this.list = nodes;
+        this.showList = true;
+      }
+    });
   }
 
 
