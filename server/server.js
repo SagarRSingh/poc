@@ -8,7 +8,7 @@ if(process.env.ENV_DEV){ // ENV_DEV=true is pass as environment variable vo deve
   app.use(cors())
 }
 
-app.use(express.static("../dist/dash/browser"))
+app.use(express.static("/home/sagar.r.singh/learn-project/poc/dash/dist/dash/browser"))
 
 const enterprises = [
     
