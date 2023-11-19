@@ -1,6 +1,12 @@
 const express = require('express')
+
 const app = express()
 const port = 3000
+
+if(process.env.ENV_DEV){ // ENV_DEV=true is pass as environment variable vo development mode.
+  const cors = require('cors')
+  app.use(cors())
+}
 
 app.use(express.static("../dist/dash/browser"))
 
@@ -129,10 +135,6 @@ const enterprises = [
   
 ]
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
-
 app.get('/api/enterprises', (req, res)=>{
   res.json(enterprises)
 });
@@ -164,5 +166,5 @@ app.get('/api/nodes', (req, res)=>{
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(` app listening on port ${port}`)
 })

@@ -1,9 +1,9 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ChartsComponent } from './charts/charts.component';
 import { FilterPipe } from './filter.pipe';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RequestService } from './request.service';
 
@@ -16,7 +16,7 @@ import { RequestService } from './request.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
 
   name='';
   startDate='';
@@ -29,9 +29,10 @@ export class AppComponent implements OnInit{
     name: null,
     status: null
   }];
+  enterprises = [{customers:1, name: ''}]
   // list = null
 
-  enterprises = [
+  /*enterprises = [
     
     {
       name: 'Name one',
@@ -154,7 +155,8 @@ export class AppComponent implements OnInit{
       ]
     },
     
-  ]
+  ]*/
+  
   pieChartData: number[]=[];
   lineChartData: number[] = [];
   pieChartLabel: string[] = [];
@@ -174,12 +176,12 @@ export class AppComponent implements OnInit{
   }
 
   constructor(private requestService:RequestService){
-
-  }
-  ngOnInit(): void {
-    this.pieChartData = this.enterprises.map(e=>e.customers);
-    this.pieChartLabel = this.enterprises.map(e=>e.name)
-    this.lineChartData = this.pieChartData;
+    this.requestService.request('/enterprises').subscribe(data=>{
+      this.enterprises = data   
+      this.pieChartData = this.enterprises.map(e=>e.customers);
+      this.pieChartLabel = this.enterprises.map(e=>e.name)
+      this.lineChartData = this.pieChartData;   
+    });
   }
 
   toggleDropdown(){
